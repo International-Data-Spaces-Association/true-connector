@@ -1,11 +1,13 @@
 version: '2.2'
 services:
   ecc-provider: 
-    image: rdlabengpa/ids_execution_core_container:v1.9.3
+    image: rdlabengpa/ids_execution_core_container:v1.9.4
+    container_name: ecc-provider
     ports:
       - "${PROVIDER_PORT}:${INTERNAL_REST_PORT}"  #Port for exposing HTTP endpoints 
       - 8889:8889  #Exposed port for receiving data from another connector (REST)
       - 8086:8086  #Exposed port for receiving data from another connector (WS)
+      - 8081:8081 # SwaggerUI
     environment:
        - "SPRING_PROFILES_ACTIVE=docker"  
        - DATA_APP_ENDPOINT=${PROVIDER_DATA_APP_ENDPOINT}      #Data APP enpoint for consuming received data 
@@ -40,6 +42,7 @@ services:
       - "ecc-provider:172.17.0.1"
 
   uc-dataapp-provider:
+    container_name: uc-dataapp-provider
     image: rdlabengpa/ids_uc_data_app:v0.0.6
     environment:
       - TZ=Europe/Rome 
@@ -51,7 +54,8 @@ services:
       - ./uc-dataapp_resources:/config
 
   be-dataapp-provider:
-    image: rdlabengpa/ids_be_data_app:v0.1.2
+    image: rdlabengpa/ids_be_data_app:v0.1.3
+    container_name: be-dataapp-provider
     environment:
        - "SPRING_PROFILES_ACTIVE=docker"  
        - DATA_APP_MULTIPART=${PROVIDER_MULTIPART_EDGE}
@@ -72,11 +76,13 @@ services:
       - ./ecc_cert:/cert
 
   ecc-consumer: 
-    image: rdlabengpa/ids_execution_core_container:v1.9.3
+    image: rdlabengpa/ids_execution_core_container:v1.9.4
+    container_name: ecc-consumer
     ports:
       - "${CONSUMER_PORT}:${INTERNAL_REST_PORT}"  #Port for exposing HTTP endpoints 
       - 8890:8889  #Exposed port for receiving data from another connector (REST)
       - 8087:8086  #Exposed port for receiving data from another connector (WS)
+      - 8082:8081 #SwaggerUI
     environment:
        - "SPRING_PROFILES_ACTIVE=docker"  
        - DATA_APP_ENDPOINT=${CONSUMER_DATA_APP_ENDPOINT}    #Data APP enpoint for consuming received data 
@@ -112,6 +118,7 @@ services:
 
   uc-dataapp-consumer:
     image: rdlabengpa/ids_uc_data_app:v0.0.6
+    container_name: uc-dataapp-consumer
     environment:
       - TZ=Europe/Rome  
     ports:
@@ -122,7 +129,8 @@ services:
       - ./uc-dataapp_resources:/config
 
   be-dataapp-consumer:
-    image:  rdlabengpa/ids_be_data_app:v0.1.2
+    image:  rdlabengpa/ids_be_data_app:v0.1.3
+    container_name: be-dataapp-consumer
     environment:
        - "SPRING_PROFILES_ACTIVE=docker"  
        - DATA_APP_MULTIPART=${CONSUMER_MULTIPART_EDGE}

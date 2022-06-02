@@ -403,13 +403,21 @@ TRUE Connector supports p12 format of certificate file, but if for some reason c
 
 ### Validate protocol <a name="validateprotocol"></a>
 
-Forward-To protocol validation can be changed by editing *application-docker.properties* and modify **application.validateProtocol**. Default value is *false* and Forward-To URL will not be validated.
+*Forward-To* protocol validation can be enabled by setting the property **application.enableProtocolValidation** to *true*. If you have this enabled, please refer to the following step.
+
+*Forward-To* protocol validation can be changed by editing *application-docker.properties* and modify **application.validateProtocol**. Default value is *false* and Forward-To URL will not be validated.
 Forward-To URL can be set like http(https,wss)://example.com or just example.com and the protocol chosen (from application-docker.properties) will be automatically set (it will be overwritten!)</br>
 Example: http://example.com will be wss://example if you chose wss in the properties).
 
 If validateProtocol is true, then Forward-To header must contain full URL, including protocol.</br>
 Forward-To=localhost:8890/data - this one will fail, since it lack of information is it http or https</br>
 Forward-To=https://localhost:8890/data - this one will work, since it has protocol information in URL.
+
+If protocol validation is enabled and protocol does not match with configuration, then Rejection Ressage will be sent and message will not be forwarded to the Provider.
+
+For example:
+
+consumer is configured as https and Forward-To is http and validateProtocol=true will result in Rejection Message.
 
 ### Clearing House <a name="clearinghouse"></a>
 
@@ -1025,6 +1033,11 @@ The appeariance of "John Doe" signifies the successful exchange with this contra
 ## Self Description API <a name="selfdescription"></a>
 
 To manage your Self Description Document please check following [link](https://github.com/Engineering-Research-and-Development/true-connector-execution_core_container/blob/master/doc/SELF_DESCRIPTION.md)
+
+Ports for Swagger UI are:
+
+8081 for Provider</br>
+8082 for Consumer
 
 You can copy existing valid self-description.json document to following location
 **/ecc_resources_consumer** or **/ecc_resources_provider** folders, for consumer or provider</br>
