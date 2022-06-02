@@ -845,8 +845,8 @@ If everything goes well, you will get response with body containing "@type" : "i
 ### Contract Agreement request <a name="contract_agreement_request"></a>
 
 **NOTE**: Payload part is taken as example. Be sure to replace with value you have recieved.
-In the following step of negotiation, we create Contract Agreement Message: in Payload of new message we put (copy & paste) payload (ContractAgreement) obtained from previous response from ContractRequestMessage.\
-**NOTE**: Be sure to check the end date. In current example it is valid until 2021-12-31.
+In the following step of negotiation, we create Contract Agreement Message: in Payload of new message we put (copy & paste) payload (ContractAgreement) **obtained from previous response** from ContractRequestMessage.\
+**NOTE**: Be sure to verify end date
 
 <details>
   <summary>Multipart form - Contract Agreement request</summary>
@@ -858,50 +858,8 @@ In the following step of negotiation, we create Contract Agreement Message: in P
 		"Forward-To": "https://ecc-provider:8889/data",
 		"messageType": "ContractAgreementMessage",
 		"requestedArtifact": "http://w3id.org/engrd/connector/artifact/1",
-		"payload" : {
-			"@context": {
-				"ids":"https://w3id.org/idsa/core/",
-				"idsc" : "https://w3id.org/idsa/code/"
-			},
-			"@type": "ids:ContractAgreement",
-			"@id": "https://w3id.org/idsa/autogen/contract/restrict-access-interval",
-			"profile": "http://example.com/ids-profile",
-			"ids:provider": "ecc-provider",
-			"ids:consumer": "ecc-consumer",
-			"ids:permission": [{
-				"ids:target": {
-					"@id":"http://w3id.org/engrd/connector/artifact/1"
-				},
-				"ids:action": [{
-					"@id":"idsc:USE"
-				}],
-				"ids:constraint": [{
-					"@type":"ids:Constraint",
-					"ids:leftOperand": {
-						"@id": "idsc:POLICY_EVALUATION_TIME"
-					},
-					"ids:operator": {
-						"@id": "idsc:TEMPORAL_EQUALS"
-					},
-					"ids:rightOperand": {
-						"@type": "ids:interval",
-						"@value": {
-							 "ids:begin": {
-								"@value": "2021-06-15T00:00:00Z",
-								"@type": "xsd:datetimeStamp"
-							},
-							"ids:end": {
-								"@value": "2021-12-31T00:00:00Z",
-								"@type": "xsd:datetimeStamp"
-							}
-						}
-					},
-					"ids:pipEndpoint": {
-						"@id": "https//example.com/pip/policy_evaluation_time"
-					}
-				}]
-			}]
-		}
+		"payload" : 
+		DELETE THIS LINE AND PUT HERE ids:ContractAgreement FROM PREVIOUS Response
 	}'
 
 </details>
