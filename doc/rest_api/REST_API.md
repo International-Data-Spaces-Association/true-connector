@@ -1,11 +1,14 @@
 # REST API
 
-Overview of all available endpoints reduced to generic endpoints:
+The TRUE Connector will use two protocols (http and https) as described by the Docker Compose File.
+Overview of all available endpointss:
 
 *NOTE* Endpoints /api/** are protected with credentials
 
 | **Method** |	**Endpoint** |	**Usage** |	**Returns** |
 | ---------- |	------------ |	--------- |	----------- |
+| POST | /proxy | Utility endpoint for starting communication | Response from provider connector |
+
 | GET | / | Get connector self description | Connector |
 | GET | /about/version | Return version of deployed ECC | - |
 | GET | /notification/content/{hash} | Hash string from path variable | String |

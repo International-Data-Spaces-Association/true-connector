@@ -16,7 +16,7 @@ The TRUE Connector is composed of three components:
   * [System requirements](#systemrequirements)
   * [Default configuration](#defaultconfiguration)
   * [Starting and stopping containers](#startstop)
-* [Endpoints](#endpoints)
+* [REST API](#restapi)
 * [Connector reachability](#reachability)
 * [Connector Id](#connectorId)
 * [How to Exchange Data](#exchangedata)
@@ -40,7 +40,6 @@ The TRUE Connector is composed of three components:
   * [Contract Request Message](#contract_request_message)
   * [Contract Agreement request](#contract_agreement_request)
   * [Get offered resource after access is granted](#get_offered_resource_granted)
-* [REST API](#restapi)
 * [Self Description API](#selfdescription)
 * [License](#license)
 
@@ -176,28 +175,10 @@ docker-compose down -v
 
 At this point, you should be able to use TRUE Connector and send messages. How to send messages, check following link [Send multipart form request](#exchangedata):
 
-## Endpoints <a name="endpoints"></a>
-The TRUE Connector will use two protocols (http and https) as described by the Docker Compose File.
-It will expose the following endpoints:
 
-```
-/proxy
-```
+## REST API <a name="restapi"></a>
 
-to receive data incoming request, and based on received request, forward request to Execution Core Connector (the P endpoint in the above picture)
-
-```
-/data
-```
-
-to receive data (IDS Message) from a sender connector (the B endpoint in the above picture)
-Furthermore, just for testing it will expose (http and https):
-
-```
-/about/version
-```
-
-returns business logic version .
+Detailed description of API endpoints provided by TrueConnector can be found in [link](doc/rest_api/REST_API.md)
 
 ## Connector reachability <a name="reachability"></a>
 
@@ -1201,10 +1182,6 @@ Expected response is ArtifactResponseMessage, as header, and in payload - json d
 </details>
 
 The appeariance of "John Doe" signifies the successful exchange with this contract.
-
-## REST API <a name="restapi"></a>
-
-Detailed description of API endpoints provided by TrueConnector can be found in [link](https://github.com/Engineering-Research-and-Development/true-connector-execution_core_container/blob/master/doc/REST_API.md)
 
 ## Self Description API <a name="selfdescription"></a>
 
